@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace DSS.Entities
 {
-    public class Player : MonoBehaviour
+    public partial class Player : MonoBehaviour
     {
         [SerializeField] private EntityData entityData;
         [SerializeField] private Health health;
