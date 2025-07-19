@@ -16,5 +16,5 @@ MonoBehaviour:
   <Health>k__BackingField: 100
   <Damage>k__BackingField: 10
   <AttackRange>k__BackingField: 2
-  <AttackCooldown>k__BackingField: 0.1
+  <AttackCooldown>k__BackingField: 0.25
   <KnockbackForce>k__BackingField: 5

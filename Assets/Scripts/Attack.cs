@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using DSS.Entities;
 using UnityEngine;
 
@@ -5,36 +6,47 @@ namespace DSS
 {
     public class Attack : MonoBehaviour
     {
-        private EntityData entityData;
+        public EntityData EntityData { get; private set; }
 
-        private float lastAttackTime;
+        public float CooldownTimer { get; private set; }
 
         public void Initialize(EntityData data)
         {
-            entityData = data;
-            lastAttackTime = -entityData.AttackCooldown; // Allow immediate attack
+            EntityData = data;
+            CooldownTimer = 0;
         }
 
-        public void PerformAttack(Health target)
+        public void PerformAttack(params Health[] targets)
         {
-            if (target == null || target.CurrentHealth <= 0)
+            if (CooldownTimer > 0)
                 return;
-            
-            if (Time.time - lastAttackTime < entityData.AttackCooldown)
-                return;
-            
-            Debug.Log( $"Attacking {target.gameObject.name} for {entityData.Damage} damage.");
 
-            Transform targetTransform = target.transform;
-            float distanceToTarget = Vector3.Distance(transform.position, targetTransform.position);
-            if (distanceToTarget <= entityData.AttackRange)
+            for (int i = 0; i < targets.Length; i++)
             {
-                target.TakeDamage(Mathf.RoundToInt(entityData.Damage));
-                //Vector3 knockbackDirection = (targetTransform.position - transform.position).normalized;
-                //target.GetComponent<Rigidbody>().AddForce(knockbackDirection * entityData.KnockbackForce, ForceMode.Impulse);
+                Health target = targets[i];
+                if (target != null && Vector3.Distance(transform.position, target.transform.position) <= EntityData.AttackRange)
+                {
+                    //Debug.Log($"Attacking {target.gameObject.name} for {EntityData.Damage} damage.");
+                    target.TakeDamage(Mathf.RoundToInt(EntityData.Damage));
+
+                    // Optional knockback:
+                    // Vector3 knockbackDir = (target.transform.position - transform.position).normalized;
+                    // target.GetComponent<Rigidbody2D>()?.AddForce(knockbackDir * EntityData.KnockbackForce, ForceMode2D.Impulse);
+                }
             }
 
-            lastAttackTime = Time.time;
+            CooldownTimer = EntityData.AttackCooldown;
+        }
+
+        public void PerformAttack(List<Health> targets)
+        {
+            PerformAttack(targets.ToArray());
+        }
+        
+        private void Update()
+        {
+            if (CooldownTimer > 0f)
+                CooldownTimer -= Time.deltaTime;
         }
     }
 }
