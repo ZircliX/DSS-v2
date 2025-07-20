@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AttackCooldownUpgrade
   m_EditorClassIdentifier: 
   <Name>k__BackingField: light sword
-  <Description>k__BackingField: Reduce time between attacks
+  <Description>k__BackingField: Reduce time between attacks !
   <Cost>k__BackingField: 10
   <Value>k__BackingField: 1
   <CostMultiplier>k__BackingField: 1.3

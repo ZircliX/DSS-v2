@@ -7,7 +7,7 @@ using UnityEngine.Video;
 
 namespace DSS
 {
-    public class GameManager : MonoSingleton<GameManager>
+    public class GameManager : SceneSingleton<GameManager>
     {
         [SerializeField] private ShopUI shopUI;
         [SerializeField] private Health health;

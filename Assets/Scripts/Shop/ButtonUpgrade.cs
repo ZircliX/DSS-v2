@@ -40,8 +40,8 @@ namespace DSS.Shop
             titleText.text = Upgrade.Name;
             descriptionText.text = Upgrade.Description;
             levelText.text = "LvL:" + Level;
-            costText.text = Mathf.CeilToInt(Upgrade.Cost * Upgrade.CostMultiplier * Level).ToString();
-            valueText.text = Mathf.CeilToInt(Upgrade.Value * Upgrade.ValueMultiplier * Level).ToString();
+            costText.text = $"{Mathf.CeilToInt(Upgrade.Cost * Upgrade.CostMultiplier * Level).ToString()} $";
+            valueText.text = $"+{Mathf.CeilToInt(Upgrade.Value * Upgrade.ValueMultiplier * Level).ToString()}";
         }
     }
 }
