@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace DSS.Entities
 {
@@ -14,7 +15,15 @@ namespace DSS.Entities
 
         private float BonusSpeed;
         
-        Sequence weaponSeq;
+        private Sequence weaponSeq;
+        
+        private Vector2 moveInput;
+        private Vector2 attackInput;
+
+        private const float MIN_THRESHOLD = 0.001f;
+        
+        private bool isAttacking => attackInput.sqrMagnitude > MIN_THRESHOLD;
+        private bool isMoving => moveInput.sqrMagnitude > MIN_THRESHOLD;
         
         private void Awake()
         {
@@ -40,11 +49,10 @@ namespace DSS.Entities
 
         private void HandleMovement()
         {
-            float moveHorizontal = Input.GetAxisRaw("Horizontal");
-            float moveVertical = Input.GetAxisRaw("Vertical");
-
-            Vector3 movement = new Vector3(moveHorizontal, moveVertical, 0).normalized;
-            transform.Translate(movement * ((entityData.Speed + BonusSpeed) * Time.deltaTime), Space.World);
+            if (!isMoving) return;
+            
+            Vector3 movement = new Vector3(moveInput.x, moveInput.y, 0).normalized;
+            transform.Translate(movement * (entityData.Speed * Time.deltaTime), Space.World);
         }
 
         public void UpdateMouvementSpeed(float value)
@@ -56,41 +64,44 @@ namespace DSS.Entities
         
         private void HandleAttack()
         {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                RaycastHit2D[] hits = CalculateAttackHits();
-                List<Health> targets = new List<Health>(hits.Length);
+            if (!isAttacking) return;
+            
+            RotatePlayer();
+            
+            if (attack.CooldownTimer > 0) return;
+            
+            PerformWeaponAnimation();
+            
+            RaycastHit2D[] hits = CalculateAttackHits();
+            List<Health> targets = new List<Health>(hits.Length);
                 
-                for (int i = 0; i < hits.Length; i++)
-                {
-                    RaycastHit2D hit = hits[i];
-                    Debug.Log(hit.collider.name);
+            for (int i = 0; i < hits.Length; i++)
+            {
+                RaycastHit2D hit = hits[i];
 
-                    bool isOwner = hit.collider.gameObject.GetInstanceID() == gameObject.GetInstanceID();
-                    targets.Add(isOwner ? null : hit.collider.GetComponent<Health>());
-                }
-
-                Attack.PerformAttack(targets);
-                PerformWeaponAnimation();
+                bool isOwner = hit.collider.gameObject.GetInstanceID() == gameObject.GetInstanceID();
+                targets.Add(isOwner ? null : hit.collider.GetComponent<Health>());
             }
+
+            attack.PerformAttack(targets);
         }
 
         private RaycastHit2D[] CalculateAttackHits()
         {
-            Vector2 origin = transform.position;
-            float totalAngle = 30f;
-            int rayCount = 5;
+            const float totalAngle = 55f;
+            const int rayCount = 8;
             float angleStep = totalAngle / (rayCount - 1);
             float halfAngle = totalAngle / 2f;
             float range = entityData.AttackRange;
 
+            Vector2 origin = weapon.position;
             Vector2 forward = transform.up;
 
             List<RaycastHit2D> allHits = new List<RaycastHit2D>(2 * rayCount);
 
             for (int i = 0; i < rayCount; i++)
             {
-                float angle = -halfAngle + (angleStep * i);
+                float angle = -halfAngle + (angleStep * i) + 10f;
                 Vector2 direction = Quaternion.Euler(0, 0, angle) * forward;
 
                 RaycastHit2D[] hits = Physics2D.RaycastAll(origin, direction, range);
@@ -114,14 +125,28 @@ namespace DSS.Entities
                 weaponSeq.Kill();
                 weaponSeq = null;
             }
-
-            float halfLife = entityData.AttackCooldown * 0.5f;
             
             weaponSeq = DOTween.Sequence();
-            weaponSeq.Append(weapon.DOLocalRotate(new Vector3(0, 0, -10), halfLife))
-                .Append(weapon.DOLocalRotate(new Vector3(0, 0, -70), halfLife)).OnComplete(() => { weaponSeq = null; });
+            weaponSeq.Append(weapon.DOLocalRotate(new Vector3(0, 0, -10), 0.1f))
+                .Append(weapon.DOLocalRotate(new Vector3(0, 0, -70), 0.1f)).OnComplete(() => { weaponSeq = null; });
 
             weaponSeq.Play();
+        }
+
+        private void RotatePlayer()
+        {
+            float angle = Mathf.Atan2(attackInput.y, attackInput.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.Euler(0f, 0f, angle - 90f);
+        }
+
+        public void OnMoveInput(InputAction.CallbackContext ctx)
+        {
+            moveInput = ctx.ReadValue<Vector2>();
+        }
+        
+        public void OnAttackInput(InputAction.CallbackContext ctx)
+        {
+            attackInput = ctx.ReadValue<Vector2>();
         }
     }
 }
