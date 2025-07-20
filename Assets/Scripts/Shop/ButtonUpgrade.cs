@@ -1,20 +1,44 @@
-﻿using UnityEngine;
+﻿using System;
+using TMPro;
+using UnityEngine;
 
 namespace DSS.Shop
 {
-    public class ButtonUpgrade
+    public class ButtonUpgrade : MonoBehaviour
     {
         [SerializeField] private Shop _shop;
         [SerializeField] private UpgradeData Upgrade;
+        
+        [Header("Ui")]
+        [SerializeField] private TMP_Text titleText;
+        [SerializeField] private TMP_Text descriptionText;
+        [SerializeField] private TMP_Text levelText;
+        [SerializeField] private TMP_Text CostText;
 
         public int Level;
 
+        private void Awake()
+        {
+            UpdateUI();
+        }
+
         public void TryToUpgrade()
         {
-            if (_shop.Upgrade(Mathf.CeilToInt(Upgrade.Value * Upgrade.Multiplier * Level)))
+            int cost = Mathf.CeilToInt(Upgrade.Cost * Upgrade.Multiplier * Level);
+            if (_shop.Upgrade(cost, Upgrade.upgradeType))
             {
                 Level++;
+                UpdateUI();
+                Debug.Log(Level);
             }
+        }
+
+        public void UpdateUI()
+        {
+            titleText.text = Upgrade.Name;
+            descriptionText.text = Upgrade.Description;
+            levelText.text = "LvL:" + Level;
+            CostText.text = Mathf.CeilToInt(Upgrade.Cost * Upgrade.Multiplier * Level).ToString();
         }
     }
 }

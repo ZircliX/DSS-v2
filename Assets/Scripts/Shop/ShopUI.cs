@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 
@@ -9,8 +10,24 @@ namespace DSS.Shop
         [SerializeField] private GameObject shopPanel;
         
         [SerializeField] private TMP_Text shopError;
-        
         private string Error = "Not enough gold to upgrade !";
+
+        public void OpenShop()
+        {
+            shopPanel.SetActive(true);
+        }
+
+        public void CloseShop()
+        {
+            shopPanel.SetActive(false);
+        }
+
+
+        public void UpdateShop()
+        {
+            
+        }
+        
         
         #region ErrorToUpgrade
         public void DoErrorToUpgrade()

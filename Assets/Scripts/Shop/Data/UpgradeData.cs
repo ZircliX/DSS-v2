@@ -9,8 +9,9 @@ namespace DSS.Shop
         
         [field: SerializeField] public string Name {get; private set;}
         [field: SerializeField] public string Description {get; private set;}
-        [field: SerializeField] public string Cost {get; private set;}
+        [field: SerializeField] public int Cost {get; private set;}
         [field: SerializeField] public int Value {get; private set;}
         [field: SerializeField] public float Multiplier {get; private set;}
+        [field: SerializeField] public UpgradeType upgradeType {get; private set;}
     }
 }
