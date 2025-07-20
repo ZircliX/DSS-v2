@@ -20,7 +20,7 @@ namespace DSS.Shop
                 {
                     case UpgradeType.PlayerSpeed:
                         Debug.Log("Player speed upgraded");
-                        player.UpdateMouvementSpeed(Value);
+                        player.UpdateMovementSpeed(Value);
                         break;
                     case UpgradeType.AttackSpeed:
                         Debug.Log("Player Attack speed upgraded");

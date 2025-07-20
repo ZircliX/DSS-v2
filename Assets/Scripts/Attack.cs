@@ -7,7 +7,6 @@ namespace DSS
 {
     public class Attack : MonoBehaviour
     {
-        
         public EntityData EntityData { get; private set; }
 
         public float CooldownTimer { get; private set; }
@@ -54,8 +53,6 @@ namespace DSS
                 }
             }
 
-            SoundManager.Instance.PlaySound(soundData);
-            CooldownTimer = EntityData.AttackCooldown;
             CooldownTimer = EntityData.AttackCooldown - _cooldownReduction;
         }
 

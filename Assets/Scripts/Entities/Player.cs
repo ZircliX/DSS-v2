@@ -55,7 +55,7 @@ namespace DSS.Entities
             transform.Translate(movement * (entityData.Speed * Time.deltaTime), Space.World);
         }
 
-        public void UpdateMouvementSpeed(float value)
+        public void UpdateMovementSpeed(float value)
         {
             Debug.Log($"BonusSpeed before: {BonusSpeed}");
             BonusSpeed += value;

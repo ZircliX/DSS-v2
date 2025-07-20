@@ -108,6 +108,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Health>k__BackingField: {fileID: 5990984553755959961}
   attack: {fileID: 6636445836637160884}
+  weapon: {fileID: 6050541848293038536}
 --- !u!114 &5990984553755959961
 MonoBehaviour:
   m_ObjectHideFlags: 0

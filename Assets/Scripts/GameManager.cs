@@ -1,9 +1,8 @@
-﻿using System;
-using DSS.Shop;
+﻿using DSS.Shop;
+using DSS.Spawner;
 using DSS.Timer;
 using LTX.Singletons;
 using UnityEngine;
-using UnityEngine.Video;
 
 namespace DSS
 {
@@ -31,6 +30,7 @@ namespace DSS
             Time.timeScale = 1f;
             playerTransform.position = spawnPoint.position;
             timer.StartTimer();
+            EnemySpawner.Instance.StartGame();
         }
 
         public void EndGame()
@@ -39,15 +39,15 @@ namespace DSS
 
             Time.timeScale = 0f;
             timer.PauseTimer();
+            EnemySpawner.Instance.StopGame();
             OpenShopUI();
         }
 
         public void RestartGame()
         {
-            
-            
             Debug.Log("Restarting game...");
             Time.timeScale = 1f;
+            EnemySpawner.Instance.StartGame();
             CloseShop();
 
             if (timer != null && health != null)
@@ -56,7 +56,7 @@ namespace DSS
                 health.ResurrectPlayer();
             }
             
-            // DELETE MOBS AND REPAWN THEM
+            playerTransform.position = spawnPoint.position;
         }
         
         #region SHOP
