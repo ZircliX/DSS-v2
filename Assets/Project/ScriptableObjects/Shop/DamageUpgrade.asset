@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Sharp Kanata
   <Description>k__BackingField: Increase player damage !
-  <Cost>k__BackingField: 100
-  <Value>k__BackingField: 1
-  <CostMultiplier>k__BackingField: 1.5
-  <ValueMultiplier>k__BackingField: 1.1
+  <Cost>k__BackingField: 75
+  <Value>k__BackingField: 0.75
+  <CostMultiplier>k__BackingField: 1.25
+  <ValueMultiplier>k__BackingField: 1.15
   <upgradeType>k__BackingField: 0

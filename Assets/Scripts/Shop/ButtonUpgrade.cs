@@ -26,7 +26,7 @@ namespace DSS.Shop
         public void TryToUpgrade()
         {
             int cost = Mathf.CeilToInt(Upgrade.Cost * Upgrade.CostMultiplier * Level);
-            int value = Mathf.CeilToInt(Upgrade.Value * Upgrade.ValueMultiplier * Level);
+            float value = Upgrade.Value * Upgrade.ValueMultiplier * Level;
             if (_shop.Upgrade(cost, Upgrade.upgradeType, value))
             {
                 Level++;
@@ -41,7 +41,7 @@ namespace DSS.Shop
             descriptionText.text = Upgrade.Description;
             levelText.text = "LvL:" + Level;
             costText.text = $"{Mathf.CeilToInt(Upgrade.Cost * Upgrade.CostMultiplier * Level).ToString()} $";
-            valueText.text = $"+{Mathf.CeilToInt(Upgrade.Value * Upgrade.ValueMultiplier * Level).ToString()}";
+            valueText.text = $"+{(Upgrade.Value * Upgrade.ValueMultiplier * Level).ToString()}";
         }
     }
 }

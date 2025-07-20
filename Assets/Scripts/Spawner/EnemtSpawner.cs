@@ -15,6 +15,7 @@ namespace DSS.Spawner
         private int maxEnemies = 10;
         
         public static EnemySpawner Instance { get; private set; }
+        private bool gameStarted = false;
         
         private void Awake()
         {
@@ -24,9 +25,20 @@ namespace DSS.Spawner
             enemyBuffer = new DynamicBuffer<Enemy>(10);
         }
 
+        public void StartGame()
+        {
+            gameStarted = true;
+        }
+        
+        public void StopGame()
+        {
+            gameStarted = false;
+            ClearEnemies();
+        }
+
         private void Update()
         {
-            if (enemies.Count >= maxEnemies) return;
+            if (enemies.Count >= maxEnemies || !gameStarted) return;
             
             Vector3 spawnPosition = new Vector3(Random.Range(-13f, 13f), Random.Range(-13f, 13f), 0);
             SpawnEnemy(spawnPosition);

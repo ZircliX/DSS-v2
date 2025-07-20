@@ -7,7 +7,6 @@ namespace DSS
 {
     public class Attack : MonoBehaviour
     {
-        
         public EntityData EntityData { get; private set; }
 
         public float CooldownTimer { get; private set; }
@@ -30,9 +29,9 @@ namespace DSS
 
         public void UpdatePlayerCooldownTimer(float cooldownReduction)
         {
-            Debug.Log($"Cooldown before: {CooldownTimer}");
+            Debug.Log($"Cooldown before: {EntityData.AttackCooldown - _cooldownReduction}");
             _cooldownReduction += cooldownReduction;
-            Debug.Log($"Cooldown after: {CooldownTimer}");
+            Debug.Log($"Cooldown after: {EntityData.AttackCooldown - _cooldownReduction}");
         }
 
         public void PerformAttack(params Health[] targets)
@@ -54,8 +53,6 @@ namespace DSS
                 }
             }
 
-            SoundManager.Instance.PlaySound(soundData);
-            CooldownTimer = EntityData.AttackCooldown;
             CooldownTimer = EntityData.AttackCooldown - _cooldownReduction;
         }
 

@@ -25,8 +25,20 @@ namespace DSS.Entities
         private bool isAttacking => attackInput.sqrMagnitude > MIN_THRESHOLD;
         private bool isMoving => moveInput.sqrMagnitude > MIN_THRESHOLD;
         
+        public static Player Instance { get; private set; }
+        
         private void Awake()
         {
+            if (Instance != null && Instance != this)
+            {
+                Destroy(gameObject);
+                return;
+            }
+            else
+            {
+                Instance = this;
+            }
+            
             if (entityData == null)
             {
                 Debug.LogError("EntityData is not assigned in Player script.");
@@ -55,7 +67,7 @@ namespace DSS.Entities
             transform.Translate(movement * (entityData.Speed * Time.deltaTime), Space.World);
         }
 
-        public void UpdateMouvementSpeed(float value)
+        public void UpdateMovementSpeed(float value)
         {
             Debug.Log($"BonusSpeed before: {BonusSpeed}");
             BonusSpeed += value;
