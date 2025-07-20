@@ -9,8 +9,10 @@ namespace DSS.Entities
     {
         [SerializeField] private EntityData entityData;
         [SerializeField] private Transform weapon;
-        [SerializeField] private Health health;
-        [SerializeField] private Attack attack;
+        [field : SerializeField] public Health Health {get; private set;}
+        [field : SerializeField] public Attack Attack {get; private set;}
+
+        private float BonusSpeed;
         
         Sequence weaponSeq;
         
@@ -22,8 +24,8 @@ namespace DSS.Entities
                 return;
             }
 
-            health.Initialize(entityData);
-            attack.Initialize(entityData);
+            Health.Initialize(entityData);
+            Attack.Initialize(entityData);
         }
         
         private void Update()
@@ -42,7 +44,14 @@ namespace DSS.Entities
             float moveVertical = Input.GetAxisRaw("Vertical");
 
             Vector3 movement = new Vector3(moveHorizontal, moveVertical, 0).normalized;
-            transform.Translate(movement * (entityData.Speed * Time.deltaTime), Space.World);
+            transform.Translate(movement * ((entityData.Speed + BonusSpeed) * Time.deltaTime), Space.World);
+        }
+
+        public void UpdateMouvementSpeed(float value)
+        {
+            Debug.Log($"BonusSpeed before: {BonusSpeed}");
+            BonusSpeed += value;
+            Debug.Log($"BonusSpeed after: {BonusSpeed}");
         }
         
         private void HandleAttack()
@@ -61,7 +70,7 @@ namespace DSS.Entities
                     targets.Add(isOwner ? null : hit.collider.GetComponent<Health>());
                 }
 
-                attack.PerformAttack(targets);
+                Attack.PerformAttack(targets);
                 PerformWeaponAnimation();
             }
         }

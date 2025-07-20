@@ -16,5 +16,6 @@ MonoBehaviour:
   <Description>k__BackingField: Increase player speed !
   <Cost>k__BackingField: 100
   <Value>k__BackingField: 1
-  <Multiplier>k__BackingField: 1
+  <CostMultiplier>k__BackingField: 1.05
+  <ValueMultiplier>k__BackingField: 1.12
   <upgradeType>k__BackingField: 2

@@ -27,13 +27,18 @@ namespace DSS
         private void Die()
         {
             Debug.Log($"{gameObject.name} has died.");
-            Destroy(gameObject);
+            GameManager.Instance.EndGame();
         }
         
         public void Heal(int amount)
         {
             CurrentHealth += amount;
             CurrentHealth = Mathf.Min(CurrentHealth, MaxHealth);
+        }
+
+        public void ResurrectPlayer()
+        {
+            Heal(MaxHealth);
         }
     }
 }

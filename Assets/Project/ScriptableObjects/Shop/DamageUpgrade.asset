@@ -16,5 +16,6 @@ MonoBehaviour:
   <Description>k__BackingField: Increase player damage
   <Cost>k__BackingField: 100
   <Value>k__BackingField: 1
-  <Multiplier>k__BackingField: 1.2
+  <CostMultiplier>k__BackingField: 1.5
+  <ValueMultiplier>k__BackingField: 1.1
   <upgradeType>k__BackingField: 0

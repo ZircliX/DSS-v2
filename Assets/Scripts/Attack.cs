@@ -10,10 +10,27 @@ namespace DSS
 
         public float CooldownTimer { get; private set; }
 
+        private float _bonusDamage;
+        private float _cooldownReduction;
+
         public void Initialize(EntityData data)
         {
             EntityData = data;
             CooldownTimer = 0;
+        }
+
+        public void UpdateBonusDamage(float bonusDamage)
+        {
+            Debug.Log($"_bonusDamage before: {_bonusDamage}");
+            _bonusDamage += bonusDamage;
+            Debug.Log($"_bonusDamage after: {_bonusDamage}");
+        }
+
+        public void UpdatePlayerCooldownTimer(float cooldownReduction)
+        {
+            Debug.Log($"Cooldown before: {CooldownTimer}");
+            _cooldownReduction += cooldownReduction;
+            Debug.Log($"Cooldown after: {CooldownTimer}");
         }
 
         public void PerformAttack(params Health[] targets)
@@ -35,7 +52,7 @@ namespace DSS
                 }
             }
 
-            CooldownTimer = EntityData.AttackCooldown;
+            CooldownTimer = EntityData.AttackCooldown - _cooldownReduction;
         }
 
         public void PerformAttack(List<Health> targets)

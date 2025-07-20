@@ -1,51 +1,83 @@
-﻿using DSS.Entities;
+﻿using System;
 using DSS.Shop;
+using DSS.Timer;
 using LTX.Singletons;
 using UnityEngine;
+using UnityEngine.Video;
 
 namespace DSS
 {
     public class GameManager : MonoSingleton<GameManager>
     {
         [SerializeField] private ShopUI shopUI;
+        [SerializeField] private Health health;
 
-        protected override void Awake()
+        [SerializeField] private TimerManager timer;
+        
+        [SerializeField] private Transform playerTransform;
+        [SerializeField] private Transform spawnPoint;
+
+        private string _currentTimer;
+
+        private void Start()
         {
-            base.Awake();
-            
+            Time.timeScale = 0f;
         }
 
         public void StartGame()
         {
-            //LANCER LA GAME AVEC LES STATS DE BASE DU JOUEUR (game start from MainMenu)
-            //CACHER LE MAIN MENU !
+            Debug.Log("Starting Game");
+
+            Time.timeScale = 1f;
+            playerTransform.position = spawnPoint.position;
+            timer.StartTimer();
         }
 
         public void EndGame()
         {
-            // LE PLAYER EST MORT FAIRE SPAWN LE SHOP !
-            // FREEZE LA GAME / LE TIMER
+            Debug.Log("GAME OVER");
+
+            Time.timeScale = 0f;
+            timer.PauseTimer();
+            OpenShopUI();
         }
 
         public void RestartGame()
         {
-            // REFAIRE SPAWN LE JOUEUR
+            
+            
+            Debug.Log("Restarting game...");
+            Time.timeScale = 1f;
+            CloseShop();
+
+            if (timer != null && health != null)
+            {
+                timer.RestartTimer();
+                health.ResurrectPlayer();
+            }
+            
             // DELETE MOBS AND REPAWN THEM
-            // RESET TIMER !
         }
         
         #region SHOP
         
-        private void OpenShop()
+        private void OpenShopUI()
         {
             if (shopUI != null)
-                shopUI.OpenShop();
+            {
+                Debug.Log("OpeningShop");
+                _currentTimer = timer.GetTimer();
+                shopUI.OpenShop(_currentTimer);
+            }
         }
         
         private void CloseShop()
         {
             if (shopUI != null)
-                shopUI.CloseShop();
+            {
+                _currentTimer = string.Empty;
+                shopUI.RespawnButton();
+            }
         }
         
         #endregion

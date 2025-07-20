@@ -7,7 +7,7 @@ namespace DSS.Shop
     {
         [SerializeField] private Player player;
         [SerializeField] private ShopUI shopUI; 
-        public bool Upgrade(int Cost, UpgradeType type)
+        public bool Upgrade(int Cost, UpgradeType type, float Value)
         {
             if (player == null) return false;
 
@@ -20,15 +20,15 @@ namespace DSS.Shop
                 {
                     case UpgradeType.PlayerSpeed:
                         Debug.Log("Player speed upgraded");
-                        //DO PLAYER SPEED UPGRADE
+                        player.UpdateMouvementSpeed(Value);
                         break;
                     case UpgradeType.AttackSpeed:
                         Debug.Log("Player Attack speed upgraded");
-                        //DO PLAYER ATTACK SPEED UPGRADE
+                        player.Attack.UpdatePlayerCooldownTimer(Value);
                         break;
                     case UpgradeType.Damage:
                         Debug.Log("Player Damage upgraded");
-                        //DO PLAYER DAMAGE UPGRADE
+                        player.Attack.UpdateBonusDamage(Value);
                         break;
                 }
                 return true;
