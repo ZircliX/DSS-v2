@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: PlayerData
   m_EditorClassIdentifier: 
   <Speed>k__BackingField: 3
-  <Health>k__BackingField: 100
+  <Health>k__BackingField: 50
   <Damage>k__BackingField: 10
-  <AttackRange>k__BackingField: 2
+  <AttackRange>k__BackingField: 2.5
   <AttackCooldown>k__BackingField: 1
   <KnockbackForce>k__BackingField: 5

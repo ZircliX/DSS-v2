@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Hit
   Clip: {fileID: 8300000, guid: f2848fa8ecd406040b067a0b60134697, type: 3}
-  Volume: 1
+  Volume: 0.797
   HasPitch: 1
-  PitchValue: 0.22
+  PitchValue: 0.2
