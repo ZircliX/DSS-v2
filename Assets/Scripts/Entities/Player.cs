@@ -73,8 +73,8 @@ namespace DSS.Entities
 
         private RaycastHit2D[] CalculateAttackHits()
         {
-            float totalAngle = 55f;
-            int rayCount = 8;
+            const float totalAngle = 55f;
+            const int rayCount = 8;
             float angleStep = totalAngle / (rayCount - 1);
             float halfAngle = totalAngle / 2f;
             float range = entityData.AttackRange;

@@ -12,7 +12,7 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: DefaultCompany
+  companyName: ZircliX
   productName: DSS 2.0
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
@@ -691,7 +691,7 @@ PlayerSettings:
   qnxGraphicConfPath: 
   apiCompatibilityLevel: 6
   captureStartupLogs: {}
-  activeInputHandler: 2
+  activeInputHandler: 1
   windowsGamepadBackendHint: 0
   cloudProjectId: c9b58d0d-e558-4d91-a183-840b33b44ff1
   framebufferDepthMemorylessMode: 0
