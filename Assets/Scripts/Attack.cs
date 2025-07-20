@@ -7,7 +7,7 @@ namespace DSS
 {
     public class Attack : MonoBehaviour
     {
-        [SerializeField] private SoundData soundData;
+        
         public EntityData EntityData { get; private set; }
 
         public float CooldownTimer { get; private set; }

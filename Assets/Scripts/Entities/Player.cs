@@ -53,7 +53,7 @@ namespace DSS.Entities
             
             RotatePlayer();
             
-            if (attack.CooldownTimer > 0) return;
+            if (Attack.CooldownTimer > 0) return;
             
             PerformWeaponAnimation();
             
@@ -68,7 +68,7 @@ namespace DSS.Entities
                 targets.Add(isOwner ? null : hit.collider.GetComponent<Health>());
             }
 
-            attack.PerformAttack(targets);
+            Attack.PerformAttack(targets);
         }
 
         private RaycastHit2D[] CalculateAttackHits()

@@ -1,4 +1,7 @@
+using DG.Tweening;
 using DSS.Entities;
+using DSS.Sounds;
+using DSS.Spawner;
 using UnityEngine;
 
 namespace DSS
@@ -6,6 +9,10 @@ namespace DSS
     public class Health : MonoBehaviour
     {
         [SerializeField] private ParticleSystem hitEffect;
+        [SerializeField] private SoundData soundData;
+        [SerializeField] private SpriteRenderer sr;
+        
+        private Tween hitTween;
         
         public int CurrentHealth { get; private set; }
         public int MaxHealth { get; private set; }
@@ -21,6 +28,19 @@ namespace DSS
             CurrentHealth -= damage;
             
             PlayHitVFX(hitPoint);
+            SoundManager.Instance.PlaySound(soundData);
+
+            if (hitTween != null)
+            {
+                hitTween.Kill();
+                hitTween = null;
+            }
+            
+            hitTween = sr.DOColor(Color.red, 0.1f).OnComplete(() =>
+            {
+                sr.DOColor(Color.white, 0.1f);
+            });
+            hitTween.SetTarget(this);
             
             if (CurrentHealth <= 0)
             {
@@ -30,7 +50,15 @@ namespace DSS
         
         private void Die()
         {
-            Destroy(gameObject);
+            Debug.Log($"{gameObject.name} has died.");
+            if (gameObject.CompareTag("Player"))
+            {
+                GameManager.Instance.EndGame();
+            }
+            else
+            {
+                EnemySpawner.Instance.RemoveEnemy(this);
+            }
         }
         
         public void Heal(int amount)

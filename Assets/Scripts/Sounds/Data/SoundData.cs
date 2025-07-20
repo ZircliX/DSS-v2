@@ -11,6 +11,6 @@ namespace DSS.Sounds
         [Range(0f, 1f)] public float Volume;
 
         public bool HasPitch;
-        [Range(-3f, 3f)] public float PitchValue;
+        [Range(0, 0.9f)] public float PitchValue;
     }
 }

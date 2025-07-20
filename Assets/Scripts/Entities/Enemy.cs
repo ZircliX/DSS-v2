@@ -4,29 +4,30 @@ namespace DSS.Entities
 {
     public class Enemy : MonoBehaviour
     {
-        [SerializeField] private EnemyData entityData;
-        [SerializeField] private Health health;
+        [field: SerializeField] public Health Health { get; private set; }
         [SerializeField] private Attack attack;
+        private EnemyData entityData;
         
         private Vector3 wanderTarget;
         private float wanderTimer;
         private Transform player;
         private bool chasingPlayer;
-
-        private void Awake()
+        
+        public void Initialize(EnemyData enemyData)
         {
-            if (entityData == null) Debug.LogError("EntityData not assigned.");
-            health.Initialize(entityData);
+            entityData = enemyData;
+            
+            player = GameObject.FindGameObjectWithTag("Player")?.transform;
+            Health.Initialize(entityData);
             attack.Initialize(entityData);
 
-            player = GameObject.FindGameObjectWithTag("Player")?.transform;
             wanderTimer = entityData.wanderTime;
             PickNewWanderTarget();
         }
 
         private void Update()
         {
-            if (health.CurrentHealth <= 0) return;
+            if (Health.CurrentHealth <= 0) return;
 
             float distanceToPlayer = player != null ? Vector3.Distance(transform.position, player.position) : Mathf.Infinity;
 
