@@ -16,7 +16,7 @@ namespace DSS.Shop
         public void OpenShop(string timerToShow)
         {
             shopPanel.SetActive(true);
-            timerText.text = timerToShow;
+            timerText.text = $"YOU DIED IN {timerToShow}";
         }
 
         public void RespawnButton()
