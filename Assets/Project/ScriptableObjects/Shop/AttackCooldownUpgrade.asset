@@ -16,5 +16,6 @@ MonoBehaviour:
   <Description>k__BackingField: Reduce time between attacks
   <Cost>k__BackingField: 10
   <Value>k__BackingField: 1
-  <Multiplier>k__BackingField: 1
+  <CostMultiplier>k__BackingField: 1.3
+  <ValueMultiplier>k__BackingField: 1.15
   <upgradeType>k__BackingField: 1

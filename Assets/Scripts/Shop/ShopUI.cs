@@ -10,24 +10,19 @@ namespace DSS.Shop
         [SerializeField] private GameObject shopPanel;
         
         [SerializeField] private TMP_Text shopError;
+        [SerializeField] private TMP_Text timerText;
         private string Error = "Not enough gold to upgrade !";
 
-        public void OpenShop()
+        public void OpenShop(string timerToShow)
         {
             shopPanel.SetActive(true);
+            timerText.text = timerToShow;
         }
 
-        public void CloseShop()
+        public void RespawnButton()
         {
             shopPanel.SetActive(false);
         }
-
-
-        public void UpdateShop()
-        {
-            
-        }
-        
         
         #region ErrorToUpgrade
         public void DoErrorToUpgrade()

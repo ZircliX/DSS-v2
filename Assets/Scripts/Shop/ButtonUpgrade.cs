@@ -13,7 +13,8 @@ namespace DSS.Shop
         [SerializeField] private TMP_Text titleText;
         [SerializeField] private TMP_Text descriptionText;
         [SerializeField] private TMP_Text levelText;
-        [SerializeField] private TMP_Text CostText;
+        [SerializeField] private TMP_Text costText;
+        [SerializeField] private TMP_Text valueText;
 
         public int Level;
 
@@ -24,8 +25,9 @@ namespace DSS.Shop
 
         public void TryToUpgrade()
         {
-            int cost = Mathf.CeilToInt(Upgrade.Cost * Upgrade.Multiplier * Level);
-            if (_shop.Upgrade(cost, Upgrade.upgradeType))
+            int cost = Mathf.CeilToInt(Upgrade.Cost * Upgrade.CostMultiplier * Level);
+            int value = Mathf.CeilToInt(Upgrade.Value * Upgrade.ValueMultiplier * Level);
+            if (_shop.Upgrade(cost, Upgrade.upgradeType, value))
             {
                 Level++;
                 UpdateUI();
@@ -38,7 +40,8 @@ namespace DSS.Shop
             titleText.text = Upgrade.Name;
             descriptionText.text = Upgrade.Description;
             levelText.text = "LvL:" + Level;
-            CostText.text = Mathf.CeilToInt(Upgrade.Cost * Upgrade.Multiplier * Level).ToString();
+            costText.text = Mathf.CeilToInt(Upgrade.Cost * Upgrade.CostMultiplier * Level).ToString();
+            valueText.text = Mathf.CeilToInt(Upgrade.Value * Upgrade.ValueMultiplier * Level).ToString();
         }
     }
 }
