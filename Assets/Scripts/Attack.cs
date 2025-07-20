@@ -1,11 +1,13 @@
 using System.Collections.Generic;
 using DSS.Entities;
+using DSS.Sounds;
 using UnityEngine;
 
 namespace DSS
 {
     public class Attack : MonoBehaviour
     {
+        [SerializeField] private SoundData soundData;
         public EntityData EntityData { get; private set; }
 
         public float CooldownTimer { get; private set; }
@@ -27,7 +29,7 @@ namespace DSS
                 if (target != null && Vector3.Distance(transform.position, target.transform.position) <= EntityData.AttackRange)
                 {
                     //Debug.Log($"Attacking {target.gameObject.name} for {EntityData.Damage} damage.");
-                    target.TakeDamage(Mathf.RoundToInt(EntityData.Damage));
+                    target.TakeDamage(Mathf.RoundToInt(EntityData.Damage), transform.position);
 
                     // Optional knockback:
                     // Vector3 knockbackDir = (target.transform.position - transform.position).normalized;
@@ -35,6 +37,7 @@ namespace DSS
                 }
             }
 
+            SoundManager.Instance.PlaySound(soundData);
             CooldownTimer = EntityData.AttackCooldown;
         }
 

@@ -56,7 +56,7 @@ namespace DSS.Entities
             if (attack.CooldownTimer > 0) return;
             
             PerformWeaponAnimation();
-                
+            
             RaycastHit2D[] hits = CalculateAttackHits();
             List<Health> targets = new List<Health>(hits.Length);
                 
