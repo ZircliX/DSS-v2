@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bfe877a515f40069541cbe7780fb0ac, type: 3}
   m_Name: AttackCooldownUpgrade
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: light sword
+  <Name>k__BackingField: Light Sword
   <Description>k__BackingField: Reduce time between attacks !
-  <Cost>k__BackingField: 10
-  <Value>k__BackingField: 1
-  <CostMultiplier>k__BackingField: 1.3
-  <ValueMultiplier>k__BackingField: 1.15
+  <Cost>k__BackingField: 75
+  <Value>k__BackingField: 0.05
+  <CostMultiplier>k__BackingField: 1.25
+  <ValueMultiplier>k__BackingField: 1.05
   <upgradeType>k__BackingField: 1

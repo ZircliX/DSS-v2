@@ -100,7 +100,7 @@ namespace DSS.Entities
             
             RaycastHit2D[] hits = CalculateAttackHits();
             List<Health> targets = new List<Health>(hits.Length);
-                
+            
             for (int i = 0; i < hits.Length; i++)
             {
                 RaycastHit2D hit = hits[i];

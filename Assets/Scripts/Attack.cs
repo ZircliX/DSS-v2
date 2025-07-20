@@ -29,9 +29,9 @@ namespace DSS
 
         public void UpdatePlayerCooldownTimer(float cooldownReduction)
         {
-            Debug.Log($"Cooldown before: {CooldownTimer}");
+            Debug.Log($"Cooldown before: {EntityData.AttackCooldown - _cooldownReduction}");
             _cooldownReduction += cooldownReduction;
-            Debug.Log($"Cooldown after: {CooldownTimer}");
+            Debug.Log($"Cooldown after: {EntityData.AttackCooldown - _cooldownReduction}");
         }
 
         public void PerformAttack(params Health[] targets)

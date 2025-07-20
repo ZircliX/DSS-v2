@@ -12,7 +12,5 @@ namespace DSS.Entities
         [field: SerializeField] public float Damage { get; private set; } = 10f;
         [field: SerializeField] public float AttackRange { get; private set; } = 1f;
         [field: SerializeField] public float AttackCooldown { get; private set; } = 1f;
-        
-        [field: SerializeField] public float KnockbackForce { get; private set; } = 5f;
     }
 }

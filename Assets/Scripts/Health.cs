@@ -57,6 +57,7 @@ namespace DSS
             }
             else
             {
+                Player.Instance.AddGold();
                 EnemySpawner.Instance.RemoveEnemy(this);
             }
         }
