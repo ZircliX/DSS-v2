@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79cd8a03ad1040978941986d1cf15b7f, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
-  <Speed>k__BackingField: 5
+  <Speed>k__BackingField: 3
   <Health>k__BackingField: 100
   <Damage>k__BackingField: 10
   <AttackRange>k__BackingField: 2
-  <AttackCooldown>k__BackingField: 0.25
+  <AttackCooldown>k__BackingField: 1
   <KnockbackForce>k__BackingField: 5
